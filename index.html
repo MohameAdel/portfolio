@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohamed Adel</title>
+  <meta name="description"
+    content="Portfolio of Charles, a graphic designer, UX/UI designer & front-end web developer.">
+  <meta name="keywords" content="Portfolio, Design, Developer, UX/UI, Front-end, Web GL, Three.js">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-content">
+      <div class="loader-text">Materializing shapes...</div>
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <!-- Navigation Overlay -->
+  <div id="nav-overlay">
+    <div class="nav-links">
+      <a href="#hero" class="nav-item">Home</a>
+      <a href="#work" class="nav-item">Work</a>
+      <a href="#about" class="nav-item">About</a>
+      <a href="#contact" class="nav-item">Contact</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">Mohamed Adel</div>
+    <div class="menu-trigger">Menu</div>
+  </header>
+
+  <!-- App Container -->
+  <main id="app">
+    <!-- Hero Section -->
+    <section id="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-content">
+        <h1>Hey, I’m <span class="highlight">Mohamed</span></h1>
+        <p class="subtitle">Front-End Developer.</p>
+        <div class="scroll-indicator">↓</div>
+      </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+      <h2 class="section-title">Selected Work</h2>
+
+      <div class="platform-section">
+        <h3 class="platform-title">Shopify</h3>
+        <div class="project-list-grid">
+          <a href="https://arganicnatural.com/" target="_blank" class="project-link-item">Arganic Natural</a>
+          <a href="https://hitch-eg.com/" target="_blank" class="project-link-item">Hitch EG</a>
+          <a href="https://viepharmaceuticals.com/" target="_blank" class="project-link-item">Vie Pharmaceuticals</a>
+          <a href="https://naturaworldksa.com/" target="_blank" class="project-link-item">Natura World KSA</a>
+          <a href="https://foxstore.me/" target="_blank" class="project-link-item">Fox Store</a>
+          <a href="https://arganic.org/" target="_blank" class="project-link-item">Arganic Org</a>
+          <a href="https://smartcleaneg.com/" target="_blank" class="project-link-item">Smart Clean EG</a>
+          <a href="https://bayancloudkw.com/" target="_blank" class="project-link-item">Bayan Cloud KW</a>
+          <a href="https://beaiswatches.com/" target="_blank" class="project-link-item">Beais Watches</a>
+        </div>
+      </div>
+
+      <div class="platform-section">
+        <h3 class="platform-title">Salla</h3>
+        <div class="project-list-grid">
+          <a href="https://symphony-perfume.com/" target="_blank" class="project-link-item">Symphony Perfume</a>
+          <a href="https://kafil.org.sa/" target="_blank" class="project-link-item">Kafil</a>
+          <a href="https://assaloon.com/ar" target="_blank" class="project-link-item">Assaloon</a>
+          <a href="https://bayancloud-sa.com/" target="_blank" class="project-link-item">Bayan Cloud SA</a>
+          <a href="https://pandoz.sa/ar/" target="_blank" class="project-link-item">Pandoz</a>
+          <a href="https://berghoffmena.com/" target="_blank" class="project-link-item">Berghoff MENA</a>
+          <a href="https://almajd.com.sa/" target="_blank" class="project-link-item">Almajd</a>
+          <a href="https://asabaya.com/" target="_blank" class="project-link-item">Asabaya</a>
+          <a href="https://tactical.sa/" target="_blank" class="project-link-item">Tactical</a>
+          <a href="https://teebalwedad.com/" target="_blank" class="project-link-item">Teeb Alwedad</a>
+          <a href="https://etenbrand.com/" target="_blank" class="project-link-item">Eten Brand</a>
+        </div>
+      </div>
+
+      <div class="platform-section">
+        <h3 class="platform-title">Wordpress</h3>
+        <div class="project-list-grid">
+          <a href="https://nawar-microsurgery.com/" target="_blank" class="project-link-item">Nawar Microsurgery</a>
+          <a href="https://primeraxis.com/" target="_blank" class="project-link-item">Primeraxis</a>
+          <a href="https://hamattowers.com/" target="_blank" class="project-link-item">Hamat Towers</a>
+          <a href="https://beaiswatches.com/" target="_blank" class="project-link-item">Beais Watches (WP)</a>
+          <a href="https://aglf.sa/" target="_blank" class="project-link-item">AGLF</a>
+        </div>
+      </div>
+
+      <div class="platform-section">
+        <h3 class="platform-title">EasyOrder</h3>
+        <div class="project-list-grid">
+          <a href="https://quranhayat.myeasyorders.com/products/Reva-Quran-Player" target="_blank"
+            class="project-link-item">Quran Hayat</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="about-content">
+        <h2 class="section-title">About Me</h2>
+        <div class="text-block">
+          <p>I’m Mohamed Adel, a 23-year-old Front-End Developer with 3+ years of hands-on experience building
+            high-converting websites and e-commerce stores. I previously worked at <strong>Robix</strong>, and I’m
+            currently working at <strong>Bany for Business (Saudi Arabia)</strong>.</p>
+
+          <h3 class="about-subtitle">Specialization</h3>
+          <ul class="skills-list">
+            <li><strong>Shopify</strong> (Liquid, theme customization, storefront improvements)</li>
+            <li><strong>WordPress</strong></li>
+            <li><strong>Salla</strong></li>
+            <li><strong>Easy Order</strong></li>
+          </ul>
+
+          <h3 class="about-subtitle">Core Skills</h3>
+          <ul class="skills-list">
+            <li>HTML, CSS, JavaScript</li>
+            <li>Liquid (Shopify)</li>
+            <li>Flutter, FlutterFlow</li>
+            <li>Dart</li>
+          </ul>
+
+          <p>I’m a skilled web developer who can build your website end-to-end (A to Z) — from setup and structure to
+            full implementation and launch — and I also handle ongoing improvements and performance optimizations to
+            keep the storefront fast, clean, and conversion-focused.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="contact-content">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-links">
+          <a href="mailto:midoadel9618@gmail.com" class="contact-link">Email</a>
+          <a href="https://www.facebook.com/mohamed.adel.676020/" target="_blank" class="contact-link">Facebook</a>
+          <a href="https://wa.me/201069609505" target="_blank" class="contact-link">WhatsApp</a>
+        </div>
+        <footer>
+          &copy; 2025 Mohamed Adel. Designed & Coded.
+        </footer>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
