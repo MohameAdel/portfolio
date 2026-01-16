@@ -208,12 +208,11 @@ header {
 }
 
 .scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 3rem;
   font-size: 1.5rem;
   animation: bounce 2s infinite;
+  cursor: default;
+  pointer-events: auto;
 }
 
 @keyframes bounce {
@@ -223,15 +222,15 @@ header {
   50%,
   80%,
   100% {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 
   40% {
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateY(-10px);
   }
 
   60% {
-    transform: translateX(-50%) translateY(-5px);
+    transform: translateY(-5px);
   }
 }
 
