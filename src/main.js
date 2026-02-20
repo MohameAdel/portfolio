@@ -32,7 +32,7 @@ function init() {
 
   // Objects (Materializing Shape)
   // Using a higher detail Icosahedron for smoother deformation
-  const geometry = new THREE.IcosahedronGeometry(2, 30);
+  const geometry = new THREE.IcosahedronGeometry(2, 5);
 
   // Custom Shader Material for the "Materializing/Liquid" effect
   const material = new THREE.MeshStandardMaterial({
@@ -100,6 +100,48 @@ function init() {
       navOverlay.classList.remove('active');
       menuTrigger.textContent = 'Menu';
     });
+  });
+
+  // Mobile Project Card Animation
+  if (window.innerWidth <= 768) {
+    const mobileObserverOptions = {
+      root: null,
+      rootMargin: '-20% 0px -20% 0px', // Trigger when card is in the middle 60% of the viewport
+      threshold: 0.1
+    };
+
+    const mobileObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('mobile-active');
+        } else {
+          entry.target.classList.remove('mobile-active');
+        }
+      });
+    }, mobileObserverOptions);
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      mobileObserver.observe(card);
+    });
+  }
+
+  // Carousel Navigation
+  document.querySelectorAll('.carousel-nav').forEach(nav => {
+    const section = nav.closest('.platform-section');
+    const list = section.querySelector('.project-list-grid');
+    const prevBtn = nav.querySelector('.prev');
+    const nextBtn = nav.querySelector('.next');
+    const scrollAmount = 350; // Scroll by one card width + gap approx
+
+    if (prevBtn && nextBtn && list) {
+      prevBtn.addEventListener('click', () => {
+        list.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        list.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
   });
 
   // Remove preloader
