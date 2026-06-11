@@ -411,6 +411,7 @@ section {
 .project-tag {
   display: inline-block;
   margin-top: 0.75rem;
+  margin-right: 0.35rem;
   padding: 0.4rem 0.8rem;
   background-color: #333;
   color: #fff;
@@ -420,6 +421,11 @@ section {
   border: 1px solid #555;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.project-tag--coming-soon {
+  background-color: #d71920;
+  border-color: #ff4b55;
 }
 
 /* About & Contact */
