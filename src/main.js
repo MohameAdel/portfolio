@@ -1,5 +1,8 @@
 import './style.css'
 import * as THREE from 'three'
+import { renderHome } from './views/Home.js'
+import { renderCaseStudy, renderNotFound } from './views/CaseStudy.js'
+import { projects } from './data/projects.js'
 
 // Constants
 const HERO_CANVAS_ID = 'hero-canvas'
@@ -8,154 +11,89 @@ const HERO_CANVAS_ID = 'hero-canvas'
 let scene, camera, renderer, shape;
 let mouseX = 0;
 let mouseY = 0;
+let animationId = null;
+let isThreeInitialized = false;
 
-// Init
-function init() {
+// SEO Defaults
+const defaultTitle = "Mohamed Adel";
+const defaultMetaDesc = "Portfolio of Mohamed Adel, Front-End Developer specializing in Shopify, WordPress, and e-commerce stores.";
+
+// Init Three.js
+let heroObserver = null;
+
+function initThree() {
+  if (isThreeInitialized) return;
   const canvas = document.getElementById(HERO_CANVAS_ID);
+  if (!canvas) return;
 
-  // Scene
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
 
-  // Camera
   camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 5;
 
-  // Renderer
   renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    antialias: true,
+    antialias: false, // Turn off antialias for performance gain on high-DPI screens
     alpha: true
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Limit pixel ratio to 1.5 max for performance
 
-  // Objects (Materializing Shape)
-  // Using a higher detail Icosahedron for smoother deformation
-  const geometry = new THREE.IcosahedronGeometry(2, 5);
-
-  // Custom Shader Material for the "Materializing/Liquid" effect
+  // Reduced geometry detail level from 5 to 3 for 70% fewer vertex loop calculations per frame
+  const geometry = new THREE.IcosahedronGeometry(2, 3);
   const material = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     roughness: 0.1,
     metalness: 0.8,
-    wireframe: true, // Keep wireframe for the techy/graphical look
+    wireframe: true,
     flatShading: false
   });
 
   shape = new THREE.Mesh(geometry, material);
   scene.add(shape);
-
-  // Store original positions for deformation reference
   shape.geometry.userData.originalPositions = shape.geometry.attributes.position.array.slice();
 
-  // Particles (Add some noise/floating dots)
   const particlesGeometry = new THREE.BufferGeometry();
-  const particlesCount = 800;
+  const particlesCount = 400; // Reduced particle count for performance
   const posArray = new Float32Array(particlesCount * 3);
-
   for (let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 20; // Spread them out more
+    posArray[i] = (Math.random() - 0.5) * 20;
   }
-
   particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
   const particlesMaterial = new THREE.PointsMaterial({
     size: 0.03,
     color: 0x888888,
     transparent: true,
-    opacity: 0.6
+    opacity: 0.5
   });
-
   const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
   scene.add(particlesMesh);
 
-  // Lights - Essential for MeshStandardMaterial
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
   scene.add(ambientLight);
-
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1.8);
   directionalLight.position.set(2, 2, 5);
   scene.add(directionalLight);
 
-  const pointLight = new THREE.PointLight(0x4444ff, 2, 20); // Blueish tint
-  pointLight.position.set(-5, -2, 5);
-  scene.add(pointLight);
-
-  // Events
-  window.addEventListener('resize', onWindowResize);
-  document.addEventListener('mousemove', onMouseMove);
-
-  // Menu Trigger
-  const menuTrigger = document.querySelector('.menu-trigger');
-  const navOverlay = document.getElementById('nav-overlay');
-  const navLinks = document.querySelectorAll('.nav-item');
-
-  menuTrigger.addEventListener('click', () => {
-    navOverlay.classList.toggle('active');
-    menuTrigger.textContent = navOverlay.classList.contains('active') ? 'Close' : 'Menu';
-  });
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navOverlay.classList.remove('active');
-      menuTrigger.textContent = 'Menu';
-    });
-  });
-
-  // Mobile Project Card Animation
-  if (window.innerWidth <= 768) {
-    const mobileObserverOptions = {
-      root: null,
-      rootMargin: '-20% 0px -20% 0px', // Trigger when card is in the middle 60% of the viewport
-      threshold: 0.1
-    };
-
-    const mobileObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('mobile-active');
-        } else {
-          entry.target.classList.remove('mobile-active');
-        }
-      });
-    }, mobileObserverOptions);
-
-    document.querySelectorAll('.project-card').forEach(card => {
-      mobileObserver.observe(card);
-    });
-  }
-
-  // Carousel Navigation
-  document.querySelectorAll('.carousel-nav').forEach(nav => {
-    const section = nav.closest('.platform-section');
-    const list = section.querySelector('.project-list-grid');
-    const prevBtn = nav.querySelector('.prev');
-    const nextBtn = nav.querySelector('.next');
-    const scrollAmount = 350; // Scroll by one card width + gap approx
-
-    if (prevBtn && nextBtn && list) {
-      prevBtn.addEventListener('click', () => {
-        list.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-
-      nextBtn.addEventListener('click', () => {
-        list.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
+  window.addEventListener('resize', onWindowResize, { passive: true });
+  
+  // Throttle mousemove listener
+  let mouseMoveTimeout;
+  document.addEventListener('mousemove', (e) => {
+    if (!mouseMoveTimeout) {
+      mouseMoveTimeout = setTimeout(() => {
+        onMouseMove(e);
+        mouseMoveTimeout = null;
+      }, 30);
     }
-  });
+  }, { passive: true });
 
-  // Remove preloader
-  setTimeout(() => {
-    const preloader = document.getElementById('preloader');
-    preloader.style.opacity = '0';
-    setTimeout(() => {
-      preloader.style.display = 'none';
-      animate(); // Start animation loop after load
-    }, 500);
-  }, 1500);
+  isThreeInitialized = true;
 }
 
 function onWindowResize() {
+  if (!camera || !renderer) return;
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -166,74 +104,295 @@ function onMouseMove(event) {
   mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 }
 
-// Animation Loop
 let time = 0;
-function animate() {
-  requestAnimationFrame(animate);
+function animateThree() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    renderer.render(scene, camera);
+    return;
+  }
+  
+  animationId = requestAnimationFrame(animateThree);
   time += 0.01;
 
-  // Rotate shape
   if (shape) {
     shape.rotation.x += 0.002;
     shape.rotation.y += 0.003;
 
-    // Interactive Tilt
-    shape.rotation.x += mouseY * 0.02;
-    shape.rotation.y += mouseX * 0.02;
-
-    // Vertex Distortion (Wave effect)
     const positionAttribute = shape.geometry.attributes.position;
     const originalPositions = shape.geometry.userData.originalPositions;
-
     for (let i = 0; i < positionAttribute.count; i++) {
       const x = originalPositions[i * 3];
       const y = originalPositions[i * 3 + 1];
       const z = originalPositions[i * 3 + 2];
-
-      // Create a wave based on position and time
-      const waveX = Math.sin(y * 2 + time * 3) * 0.2;
-      const waveY = Math.cos(z * 1.5 + time * 2) * 0.2;
-      const waveZ = Math.sin(x * 2 + time) * 0.2;
-
-      // Apply distortion + slight mouse influence
-      positionAttribute.setXYZ(
-        i,
-        x + waveX + (mouseX * 0.5),
-        y + waveY + (mouseY * 0.5),
-        z + waveZ
-      );
+      const waveX = Math.sin(y * 2 + time * 3) * 0.15;
+      const waveY = Math.cos(z * 1.5 + time * 2) * 0.15;
+      const waveZ = Math.sin(x * 2 + time) * 0.15;
+      positionAttribute.setXYZ(i, x + waveX + (mouseX * 0.3), y + waveY + (mouseY * 0.3), z + waveZ);
     }
     positionAttribute.needsUpdate = true;
   }
-
   renderer.render(scene, camera);
 }
 
-// Start
+function startThree() {
+  if (!isThreeInitialized) initThree();
+  if (!animationId) animateThree();
+  const canvas = document.getElementById(HERO_CANVAS_ID);
+  if (canvas) canvas.style.display = 'block';
+}
 
-// Scroll Animation Observer
-const observerOptions = {
-  root: null,
-  rootMargin: '0px',
-  threshold: 0.1
-};
+function stopThree() {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  const canvas = document.getElementById(HERO_CANVAS_ID);
+  if (canvas) canvas.style.display = 'none';
+}
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+// Router & UI Initialization
+let globalUIInitialized = false;
+
+function initGlobalUI() {
+  if (globalUIInitialized) return;
+  globalUIInitialized = true;
+
+  const menuTrigger = document.querySelector('.menu-trigger');
+  const navOverlay = document.getElementById('nav-overlay');
+  const navLinks = document.querySelectorAll('.nav-item');
+
+  if (menuTrigger && navOverlay) {
+    menuTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      navOverlay.classList.toggle('active');
+      menuTrigger.textContent = navOverlay.classList.contains('active') ? 'Close' : 'Menu';
+    });
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navOverlay) navOverlay.classList.remove('active');
+      if (menuTrigger) menuTrigger.textContent = 'Menu';
+    });
+  });
+
+  setTimeout(() => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 300);
+    }
+  }, 300);
+}
+
+function setupHeroAutoPause() {
+  const heroEl = document.getElementById('hero');
+  if (!heroEl) return;
+  
+  if (heroObserver) heroObserver.disconnect();
+  
+  heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startThree();
+      } else {
+        stopThree(); // Instantly pause Three.js GPU loop when scrolling down to projects!
+      }
+    });
+  }, { threshold: 0.05 });
+  
+  heroObserver.observe(heroEl);
+}
+
+function initHomeInteractions() {
+  setupHeroAutoPause();
+
+  // Mobile Observers
+  if (window.innerWidth <= 768) {
+    const mobileObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('mobile-active');
+        else entry.target.classList.remove('mobile-active');
+      });
+    }, { root: null, rootMargin: '-20% 0px -20% 0px', threshold: 0.1 });
+    
+    document.querySelectorAll('.project-card-wrapper').forEach(card => mobileObserver.observe(card));
+  }
+
+  // Carousel Navigation Buttons
+  document.querySelectorAll('.carousel-nav').forEach(nav => {
+    const section = nav.closest('.platform-section');
+    const list = section.querySelector('.project-list-grid');
+    const prevBtn = nav.querySelector('.prev');
+    const nextBtn = nav.querySelector('.next');
+    if (prevBtn && nextBtn && list) {
+      prevBtn.addEventListener('click', () => list.scrollBy({ left: -360, behavior: 'smooth' }));
+      nextBtn.addEventListener('click', () => list.scrollBy({ left: 360, behavior: 'smooth' }));
     }
   });
-}, observerOptions);
 
-// Select elements to animate
-// We wait a bit to ensure elements are rendered
-setTimeout(() => {
-  document.querySelectorAll('.project-card, .section-title, .text-block p, .contact-link').forEach(el => {
-    el.classList.add('fade-in-section');
-    observer.observe(el);
+  // Fade In Observer with unobserve optimization
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Stop observing once visible
+      }
+    });
+  }, { threshold: 0.05 });
+  
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+  }, 50);
+}
+
+function updateMetadata(project) {
+  document.title = project.title + " | Mohamed Adel";
+  let descMeta = document.querySelector('meta[name="description"]');
+  if (descMeta) descMeta.content = project.shortDescription;
+  
+  // NOTE: Real per-project SEO requires static HTML pages, SSG, or SSR.
+  // Hash routing updates are for browser context and dynamic preview tools only.
+}
+
+function resetMetadata() {
+  document.title = defaultTitle;
+  let descMeta = document.querySelector('meta[name="description"]');
+  if (descMeta) descMeta.content = defaultMetaDesc;
+}
+
+let currentView = null;
+
+function handleRoute() {
+  const hash = window.location.hash || '#hero';
+  const app = document.getElementById('app');
+
+  if (hash.startsWith('#/projects/')) {
+    const slug = hash.replace('#/projects/', '');
+    const project = projects.find(p => p.slug === slug);
+    stopThree();
+    if (project) {
+      app.innerHTML = renderCaseStudy(project);
+      updateMetadata(project);
+    } else {
+      app.innerHTML = renderNotFound();
+      resetMetadata();
+    }
+    window.scrollTo(0, 0);
+    currentView = 'case-study';
+    setTimeout(() => {
+      document.querySelectorAll('.fade-in-section').forEach(el => el.classList.add('visible'));
+    }, 50);
+  } else {
+    const isHomeAlreadyLoaded = (currentView === 'home');
+    
+    if (!isHomeAlreadyLoaded) {
+      app.innerHTML = renderHome();
+      startThree();
+      resetMetadata();
+      initHomeInteractions();
+      currentView = 'home';
+    }
+
+    let targetId = '';
+    if (hash === '#work' || hash === '#/projects') targetId = 'work';
+    else if (hash === '#about') targetId = 'about';
+    else if (hash === '#contact') targetId = 'contact';
+    else if (hash === '#hero' || hash === '#/') targetId = 'hero';
+
+    if (targetId) {
+      setTimeout(() => {
+        const sec = document.getElementById(targetId);
+        if (sec) {
+          sec.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, isHomeAlreadyLoaded ? 10 : 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+}
+
+// Lightbox State
+let currentLightboxImages = [];
+let currentLightboxIndex = 0;
+
+window.openLightbox = function(index, slug) {
+  const project = projects.find(p => p.slug === slug);
+  if (!project || !project.gallery) return;
+  currentLightboxImages = project.gallery;
+  currentLightboxIndex = index;
+  updateLightboxImage();
+  const lightbox = document.getElementById('lightbox');
+  lightbox.style.display = 'flex';
+  
+  // Disable body scroll
+  document.body.style.overflow = 'hidden';
+};
+
+function updateLightboxImage() {
+  const img = document.getElementById('lightbox-img');
+  if (img && currentLightboxImages.length > 0) {
+    img.src = currentLightboxImages[currentLightboxIndex];
+  }
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) lightbox.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function nextLightbox() {
+  if (currentLightboxImages.length === 0) return;
+  currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxImages.length;
+  updateLightboxImage();
+}
+
+function prevLightbox() {
+  if (currentLightboxImages.length === 0) return;
+  currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxImages.length) % currentLightboxImages.length;
+  updateLightboxImage();
+}
+
+// App Initialization
+window.addEventListener('hashchange', handleRoute);
+document.addEventListener('DOMContentLoaded', () => {
+  initGlobalUI();
+  handleRoute();
+
+  // Bind Lightbox
+  const lbClose = document.getElementById('lightbox-close');
+  const lbNext = document.getElementById('lightbox-next');
+  const lbPrev = document.getElementById('lightbox-prev');
+  if (lbClose) lbClose.addEventListener('click', closeLightbox);
+  if (lbNext) lbNext.addEventListener('click', nextLightbox);
+  if (lbPrev) lbPrev.addEventListener('click', prevLightbox);
+  
+  // Keyboard nav for lightbox
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && lightbox.style.display === 'flex') {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextLightbox();
+      if (e.key === 'ArrowLeft') prevLightbox();
+    }
   });
-}, 100);
+});
 
-// Start
-init();
+// Since Vite injects module script after DOMContentLoaded, we also call it directly
+initGlobalUI();
+handleRoute();
+
+// Bind Lightbox (immediate)
+const lbClose = document.getElementById('lightbox-close');
+const lbNext = document.getElementById('lightbox-next');
+const lbPrev = document.getElementById('lightbox-prev');
+if (lbClose) lbClose.addEventListener('click', closeLightbox);
+if (lbNext) lbNext.addEventListener('click', nextLightbox);
+if (lbPrev) lbPrev.addEventListener('click', prevLightbox);
+
