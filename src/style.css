@@ -188,6 +188,71 @@ header {
   z-index: -1;
 }
 
+/* Hide Header & Menu Navigation */
+header, #nav-overlay {
+  display: none !important;
+}
+
+/* Floating Contact Action Button (FAB) */
+#floating-contact-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.fab-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+  filter: blur(12px);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.fab-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem 1.4rem;
+  background: rgba(18, 18, 20, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(16px);
+  border-radius: 40px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.92rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, color 0.3s ease;
+}
+
+#floating-contact-btn:hover .fab-content {
+  transform: translateY(-4px) scale(1.04);
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+#floating-contact-btn:hover .fab-glow {
+  opacity: 1;
+  filter: blur(16px);
+}
+
+@media (max-width: 768px) {
+  #floating-contact-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+  .fab-content {
+    padding: 0.7rem 1.1rem;
+    font-size: 0.85rem;
+  }
+}
+
 /* Hero Section Styling */
 #hero {
   position: relative;
@@ -195,7 +260,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 7.5rem 1.5rem 4rem 1.5rem;
+  padding: 4rem 1.5rem 3rem 1.5rem;
 }
 
 .hero-content {
@@ -316,11 +381,11 @@ header {
 
 @media (max-width: 768px) {
   #hero {
-    padding-top: 6.8rem;
+    padding-top: 2.5rem;
     padding-bottom: 2.5rem;
     min-height: auto;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
   }
   .hero-avatar-wrapper {
