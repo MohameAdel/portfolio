@@ -31,6 +31,21 @@ export function renderHome() {
       <!-- Hero Section -->
       <section id="hero">
         <div class="hero-content">
+          <div class="hero-avatar-wrapper">
+            <div class="hero-avatar-container">
+              <div class="avatar-ambient-glow"></div>
+              <div class="avatar-ring">
+                <img src="./profile.jpg" alt="Mohamed Adel - Front-End Developer" class="hero-profile-img" onerror="this.src='./profile-placeholder.svg'">
+              </div>
+              <div class="avatar-floating-tag tag-left">
+                <span>&lt;Dev/&gt;</span>
+              </div>
+              <div class="avatar-floating-tag tag-right">
+                <span>UI & E-com</span>
+              </div>
+            </div>
+          </div>
+
           <div class="hero-status-badge">
             <span class="status-dot"></span>
             <span>Available for New Projects</span>

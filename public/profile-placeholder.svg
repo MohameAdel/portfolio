@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="50%" stop-color="#09090b" />
+      <stop offset="100%" stop-color="#18181b" />
+    </linearGradient>
+    <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg-grad)" />
+
+  <!-- Geometric Grid Accent -->
+  <circle cx="200" cy="200" r="160" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2" stroke-dasharray="8 8" />
+  <circle cx="200" cy="200" r="120" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+
+  <!-- Stylized Developer Silhouette -->
+  <!-- Head -->
+  <circle cx="200" cy="155" r="55" fill="#27272a" stroke="url(#ring-grad)" stroke-width="3" />
+  <!-- Hair / Glasses detail -->
+  <path d="M 160 145 C 160 115, 240 115, 240 145 C 230 125, 170 125, 160 145 Z" fill="#3f3f46" />
+  <rect x="168" y="148" width="26" height="16" rx="4" fill="none" stroke="#60a5fa" stroke-width="3" />
+  <rect x="206" y="148" width="26" height="16" rx="4" fill="none" stroke="#60a5fa" stroke-width="3" />
+  <line x1="194" y1="156" x2="206" y2="156" stroke="#60a5fa" stroke-width="3" />
+
+  <!-- Body / Shoulders -->
+  <path d="M 105 320 C 105 240, 295 240, 295 320 L 295 350 L 105 350 Z" fill="#27272a" stroke="rgba(255,255,255,0.1)" stroke-width="2" />
+  <!-- Hoodie / Shirt collar -->
+  <path d="M 165 242 L 200 280 L 235 242" fill="none" stroke="#3b82f6" stroke-width="3" />
+
+  <!-- Floating Code Icons -->
+  <text x="75" y="140" fill="#60a5fa" font-family="monospace" font-size="28" font-weight="bold" opacity="0.8">&lt;/&gt;</text>
+  <text x="290" y="230" fill="#34d399" font-family="monospace" font-size="24" font-weight="bold" opacity="0.8">{ }</text>
+  <text x="295" y="130" fill="#a78bfa" font-family="monospace" font-size="20" font-weight="bold" opacity="0.7">JS</text>
+</svg>
