@@ -35,7 +35,7 @@ export function renderHome() {
             <div class="hero-avatar-container">
               <div class="avatar-ambient-glow"></div>
               <div class="avatar-ring">
-                <img src="./profile.jpg" alt="Mohamed Adel - Front-End Developer" class="hero-profile-img" onerror="this.src='./profile-placeholder.svg'">
+                <img src="./photo.png" alt="Mohamed Adel - Front-End Developer" class="hero-profile-img" onerror="this.src='./profile-placeholder.svg'">
               </div>
               <div class="avatar-floating-tag tag-left">
                 <span>&lt;Dev/&gt;</span>
