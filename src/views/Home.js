@@ -30,56 +30,63 @@ export function renderHome() {
     <div id="home-view">
       <!-- Hero Section -->
       <section id="hero">
-        <div class="hero-content">
-          <div class="hero-avatar-wrapper">
-            <div class="hero-avatar-container">
-              <div class="avatar-ambient-glow"></div>
-              <div class="avatar-ring">
-                <img src="./photo.png" alt="Mohamed Adel - Front-End Developer" class="hero-profile-img" onerror="this.src='./profile-placeholder.svg'">
+        <div class="hero-container">
+          <!-- Text Column -->
+          <div class="hero-text-col">
+            <div class="hero-status-badge">
+              <span class="status-dot"></span>
+              <span>Available for New Projects</span>
+            </div>
+            <h1>Hey, I’m <span class="highlight">Mohamed Adel</span></h1>
+            <p class="subtitle">
+              Front-End Developer specializing in building <strong>high-converting e-commerce stores</strong> & performance-driven web experiences.
+            </p>
+            
+            <div class="hero-actions">
+              <a href="#work" class="hero-btn primary-hero-btn">
+                <span>Explore My Work</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+              </a>
+              <a href="./Mohamed_Adel_CV.pdf" download="Mohamed_Adel_CV.pdf" target="_blank" class="hero-btn secondary-hero-btn">
+                <span>Download CV</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              </a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-pill">
+                <strong>4+ Years</strong>
+                <span>Experience</span>
               </div>
-              <div class="avatar-floating-tag tag-left">
-                <span>&lt;Dev/&gt;</span>
+              <div class="stat-pill-divider"></div>
+              <div class="stat-pill">
+                <strong>30+ Stores</strong>
+                <span>Delivered</span>
               </div>
-              <div class="avatar-floating-tag tag-right">
-                <span>UI & E-com</span>
+              <div class="stat-pill-divider"></div>
+              <div class="stat-pill">
+                <strong>Shopify, Salla & WordPress</strong>
+                <span>Specialist</span>
               </div>
             </div>
           </div>
 
-          <div class="hero-status-badge">
-            <span class="status-dot"></span>
-            <span>Available for New Projects</span>
-          </div>
-          <h1>Hey, I’m <span class="highlight">Mohamed Adel</span></h1>
-          <p class="subtitle">
-            Front-End Developer specializing in building <strong>high-converting e-commerce stores</strong> & performance-driven web experiences.
-          </p>
-          
-          <div class="hero-actions">
-            <a href="#work" class="hero-btn primary-hero-btn">
-              <span>Explore My Work</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-            </a>
-            <a href="./Mohamed_Adel_CV.pdf" download="Mohamed_Adel_CV.pdf" target="_blank" class="hero-btn secondary-hero-btn">
-              <span>Download CV</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            </a>
-          </div>
-
-          <div class="hero-stats">
-            <div class="stat-pill">
-              <strong>4+ Years</strong>
-              <span>Experience</span>
-            </div>
-            <div class="stat-pill-divider"></div>
-            <div class="stat-pill">
-              <strong>30+ Stores</strong>
-              <span>Delivered</span>
-            </div>
-            <div class="stat-pill-divider"></div>
-            <div class="stat-pill">
-              <strong>Shopify, Salla & WordPress</strong>
-              <span>Specialist</span>
+          <!-- Image Column -->
+          <div class="hero-image-col">
+            <div class="profile-card-wrapper">
+              <div class="profile-card-glow"></div>
+              <div class="profile-card-inner">
+                <img src="./photo.png" alt="Mohamed Adel - Front-End Developer" class="profile-main-photo" onerror="this.src='./profile-placeholder.svg'">
+                <div class="profile-card-overlay"></div>
+                <div class="profile-badge-overlay badge-top-right">
+                  <span class="badge-icon">⚡</span>
+                  <span>Front-End Dev</span>
+                </div>
+                <div class="profile-badge-overlay badge-bottom-left">
+                  <span class="badge-icon">🛒</span>
+                  <span>E-Commerce Specialist</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
