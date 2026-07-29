@@ -322,13 +322,13 @@ header {
 }
 
 .badge-top-right {
-  top: 20px;
-  right: -15px;
+  top: 14px;
+  right: 14px;
 }
 
 .badge-bottom-left {
-  bottom: 25px;
-  left: -15px;
+  bottom: 14px;
+  left: 14px;
 }
 
 .profile-card-wrapper:hover .badge-top-right {
