@@ -8,16 +8,18 @@ export function renderHome() {
   const wordpress = projects.filter(p => p.category === 'Wordpress');
   const easyOrder = projects.filter(p => p.category === 'EasyOrder');
 
-  const renderSection = (title, list) => {
+  const renderSection = (title, list, showNav = true) => {
     if (list.length === 0) return '';
     return `
       <div class="platform-section">
         <div class="section-header">
           <h3 class="platform-title">${title}</h3>
+          ${showNav ? `
           <div class="carousel-nav">
             <button class="nav-btn prev" aria-label="Previous">←</button>
             <button class="nav-btn next" aria-label="Next">→</button>
           </div>
+          ` : ''}
         </div>
         <div class="project-list-grid">
           ${list.map(p => renderProjectCard(p)).join('')}
@@ -98,7 +100,7 @@ export function renderHome() {
         ${renderSection('Shopify', shopify)}
         ${renderSection('Salla', salla)}
         ${renderSection('Wordpress', wordpress)}
-        ${renderSection('EasyOrder', easyOrder)}
+        ${renderSection('EasyOrder', easyOrder, false)}
       </section>
 
       <!-- About Section -->

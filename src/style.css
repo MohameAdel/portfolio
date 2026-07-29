@@ -201,6 +201,13 @@ header, #nav-overlay {
   z-index: 999;
   text-decoration: none;
   pointer-events: auto;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#floating-contact-btn.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
 }
 
 .fab-glow {

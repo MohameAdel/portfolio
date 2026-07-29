@@ -206,8 +206,31 @@ function setupHeroAutoPause() {
   heroObserver.observe(heroEl);
 }
 
+let contactFabObserver = null;
+
+function setupContactFabObserver() {
+  const contactEl = document.getElementById('contact');
+  const fabBtn = document.getElementById('floating-contact-btn');
+  if (!contactEl || !fabBtn) return;
+  
+  if (contactFabObserver) contactFabObserver.disconnect();
+  
+  contactFabObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        fabBtn.classList.add('hidden');
+      } else {
+        fabBtn.classList.remove('hidden');
+      }
+    });
+  }, { threshold: 0.15 });
+  
+  contactFabObserver.observe(contactEl);
+}
+
 function initHomeInteractions() {
   setupHeroAutoPause();
+  setupContactFabObserver();
 
   // Mobile Observers
   if (window.innerWidth <= 768) {
