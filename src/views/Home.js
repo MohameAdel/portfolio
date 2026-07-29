@@ -72,7 +72,7 @@ export function renderHome() {
 
       <!-- Work Section -->
       <section id="work">
-        <h2 class="section-title">My latest work</h2>
+        <h2 class="section-title">Featured Projects & Case Studies</h2>
         ${renderSection('Custom Code', customCode)}
         ${renderSection('Shopify', shopify)}
         ${renderSection('Salla', salla)}
