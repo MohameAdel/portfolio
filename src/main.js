@@ -457,58 +457,58 @@ function updateLightboxImage() {
   }
 }
 
-function closeLightbox() {
+window.closeLightbox = function() {
   const lightbox = document.getElementById('lightbox');
   if (lightbox) lightbox.style.display = 'none';
   document.body.style.overflow = '';
-}
+};
 
-function nextLightbox() {
-  if (currentLightboxImages.length === 0) return;
+window.nextLightbox = function() {
+  if (!currentLightboxImages || currentLightboxImages.length === 0) return;
   currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxImages.length;
   updateLightboxImage();
-}
+};
 
-function prevLightbox() {
-  if (currentLightboxImages.length === 0) return;
+window.prevLightbox = function() {
+  if (!currentLightboxImages || currentLightboxImages.length === 0) return;
   currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxImages.length) % currentLightboxImages.length;
   updateLightboxImage();
+};
+
+// Touch swipe for Lightbox
+let lbTouchStartX = 0;
+let lbTouchEndX = 0;
+const lightboxEl = document.getElementById('lightbox');
+if (lightboxEl) {
+  lightboxEl.addEventListener('touchstart', (e) => {
+    lbTouchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  lightboxEl.addEventListener('touchend', (e) => {
+    lbTouchEndX = e.changedTouches[0].screenX;
+    if (lbTouchEndX < lbTouchStartX - 40) window.nextLightbox();
+    if (lbTouchEndX > lbTouchStartX + 40) window.prevLightbox();
+  }, { passive: true });
 }
+
+// Keyboard nav for lightbox
+document.addEventListener('keydown', (e) => {
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox && lightbox.style.display === 'flex') {
+    if (e.key === 'Escape') window.closeLightbox();
+    if (e.key === 'ArrowRight') window.nextLightbox();
+    if (e.key === 'ArrowLeft') window.prevLightbox();
+  }
+});
 
 // App Initialization
 window.addEventListener('hashchange', handleRoute);
 document.addEventListener('DOMContentLoaded', () => {
   initGlobalUI();
   handleRoute();
-
-  // Bind Lightbox
-  const lbClose = document.getElementById('lightbox-close');
-  const lbNext = document.getElementById('lightbox-next');
-  const lbPrev = document.getElementById('lightbox-prev');
-  if (lbClose) lbClose.addEventListener('click', closeLightbox);
-  if (lbNext) lbNext.addEventListener('click', nextLightbox);
-  if (lbPrev) lbPrev.addEventListener('click', prevLightbox);
-  
-  // Keyboard nav for lightbox
-  document.addEventListener('keydown', (e) => {
-    const lightbox = document.getElementById('lightbox');
-    if (lightbox && lightbox.style.display === 'flex') {
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') nextLightbox();
-      if (e.key === 'ArrowLeft') prevLightbox();
-    }
-  });
 });
 
 // Since Vite injects module script after DOMContentLoaded, we also call it directly
 initGlobalUI();
 handleRoute();
-
-// Bind Lightbox (immediate)
-const lbClose = document.getElementById('lightbox-close');
-const lbNext = document.getElementById('lightbox-next');
-const lbPrev = document.getElementById('lightbox-prev');
-if (lbClose) lbClose.addEventListener('click', closeLightbox);
-if (lbNext) lbNext.addEventListener('click', nextLightbox);
-if (lbPrev) lbPrev.addEventListener('click', prevLightbox);
 

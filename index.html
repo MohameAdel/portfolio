@@ -51,12 +51,15 @@
     <!-- Router injects views here -->
   </main>
   
-  <!-- Lightbox -->
-  <div id="lightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center;">
-    <button id="lightbox-close" style="position: absolute; top: 20px; right: 30px; background: none; border: none; color: #fff; font-size: 3rem; cursor: pointer;">&times;</button>
-    <button id="lightbox-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; font-size: 3rem; cursor: pointer;">&#10094;</button>
-    <img id="lightbox-img" src="" alt="Gallery Image" style="max-width: 90%; max-height: 90%; object-fit: contain;">
-    <button id="lightbox-next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; font-size: 3rem; cursor: pointer;">&#10095;</button>
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox-overlay" style="display: none;">
+    <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+    <button id="lightbox-close" class="lightbox-btn lb-close" onclick="closeLightbox()" aria-label="Close Lightbox">&times;</button>
+    <button id="lightbox-prev" class="lightbox-btn lb-prev" onclick="prevLightbox()" aria-label="Previous Image">&#10094;</button>
+    <div class="lightbox-image-container">
+      <img id="lightbox-img" src="" alt="Enlarged View">
+    </div>
+    <button id="lightbox-next" class="lightbox-btn lb-next" onclick="nextLightbox()" aria-label="Next Image">&#10095;</button>
   </div>
 
   <script type="module" src="/src/main.js"></script>
