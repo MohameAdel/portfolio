@@ -209,7 +209,7 @@ export function renderCaseStudy(project) {
         ` : ''}
 
         <!-- Client Reviews Section -->
-        <div class="case-study-section-wrapper" style="margin-top: 3.5rem;">
+        <div class="case-study-section-wrapper" style="margin-top: 1.75rem;">
           <section id="reviews" style="padding: 0;">
             <div class="reviews-container">
               <div class="reviews-header">
