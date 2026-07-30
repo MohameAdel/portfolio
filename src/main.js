@@ -380,6 +380,8 @@ function handleRoute() {
     if (project) {
       app.innerHTML = renderCaseStudy(project);
       updateMetadata(project);
+      setupReviewsAutoSlider();
+      setupContactFabObserver();
     } else {
       app.innerHTML = renderNotFound();
       resetMetadata();

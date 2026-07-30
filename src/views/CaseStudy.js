@@ -206,6 +206,92 @@ export function renderCaseStudy(project) {
           </div>
         ` : ''}
 
+        <!-- Client Reviews Section -->
+        <div class="case-study-section-wrapper" style="margin-top: 3.5rem;">
+          <section id="reviews" style="padding: 0;">
+            <div class="reviews-container">
+              <div class="reviews-header">
+                <div class="reviews-header-top">
+                  <span class="reviews-badge">✦ Client Testimonials & Feedback</span>
+                  <div class="reviews-carousel-nav">
+                    <button class="review-nav-btn prev" id="reviews-prev" aria-label="Previous Review">←</button>
+                    <button class="review-nav-btn next" id="reviews-next" aria-label="Next Review">→</button>
+                  </div>
+                </div>
+                <h2 class="reviews-title">What My Clients Say</h2>
+                <p class="reviews-subtitle">Real feedback and chat testimonials from store owners, brand managers, and clients I’ve worked with.</p>
+              </div>
+
+              <div class="reviews-slider-track-wrapper">
+                <div class="reviews-slider-track" id="reviews-slider-track">
+                  <!-- Review 1 -->
+                  <div class="review-card" onclick="openReviewLightbox(0)">
+                    <div class="review-card-header">
+                      <div class="stars-rating">★★★★★ <span>5.0</span></div>
+                      <span class="review-verified-badge">Verified Client 🟢</span>
+                    </div>
+                    <div class="review-image-wrapper">
+                      <img src="./rev1.png" alt="Client Review Screenshot 1" loading="lazy" decoding="async" class="review-img">
+                      <div class="review-zoom-overlay">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Expand</span>
+                      </div>
+                    </div>
+                    <div class="review-card-footer">
+                      <span class="review-tag">Store Feedback</span>
+                      <span class="review-click-hint">View Screenshot ↗</span>
+                    </div>
+                  </div>
+
+                  <!-- Review 2 -->
+                  <div class="review-card" onclick="openReviewLightbox(1)">
+                    <div class="review-card-header">
+                      <div class="stars-rating">★★★★★ <span>5.0</span></div>
+                      <span class="review-verified-badge">Verified Client 🟢</span>
+                    </div>
+                    <div class="review-image-wrapper">
+                      <img src="./rev2.png" alt="Client Review Screenshot 2" loading="lazy" decoding="async" class="review-img">
+                      <div class="review-zoom-overlay">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Expand</span>
+                      </div>
+                    </div>
+                    <div class="review-card-footer">
+                      <span class="review-tag">E-Commerce Client</span>
+                      <span class="review-click-hint">View Screenshot ↗</span>
+                    </div>
+                  </div>
+
+                  <!-- Review 3 -->
+                  <div class="review-card" onclick="openReviewLightbox(2)">
+                    <div class="review-card-header">
+                      <div class="stars-rating">★★★★★ <span>5.0</span></div>
+                      <span class="review-verified-badge">Verified Client 🟢</span>
+                    </div>
+                    <div class="review-image-wrapper">
+                      <img src="./rev3.png" alt="Client Review Screenshot 3" loading="lazy" decoding="async" class="review-img">
+                      <div class="review-zoom-overlay">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Expand</span>
+                      </div>
+                    </div>
+                    <div class="review-card-footer">
+                      <span class="review-tag">Custom Storefront</span>
+                      <span class="review-click-hint">View Screenshot ↗</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="reviews-dots" id="reviews-dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+              </div>
+            </div>
+          </section>
+        </div>
+
         <!-- CTA Section -->
         <div class="cs-footer-cta">
           <h2>Need a similar website?</h2>

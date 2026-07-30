@@ -1840,7 +1840,8 @@ footer {
 .contact-container {
   max-width: 1100px;
   margin: 0 auto;
-  padding-bottom: 3rem;
+  margin-top: 4rem;
+  padding-bottom: 0rem;
 }
 
 .contact-card {
