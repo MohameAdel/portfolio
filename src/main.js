@@ -115,21 +115,12 @@ function animateThree() {
   time += 0.01;
 
   if (shape) {
-    shape.rotation.x += 0.002;
-    shape.rotation.y += 0.003;
+    shape.rotation.x += 0.0025;
+    shape.rotation.y += 0.0035;
 
-    const positionAttribute = shape.geometry.attributes.position;
-    const originalPositions = shape.geometry.userData.originalPositions;
-    for (let i = 0; i < positionAttribute.count; i++) {
-      const x = originalPositions[i * 3];
-      const y = originalPositions[i * 3 + 1];
-      const z = originalPositions[i * 3 + 2];
-      const waveX = Math.sin(y * 2 + time * 3) * 0.15;
-      const waveY = Math.cos(z * 1.5 + time * 2) * 0.15;
-      const waveZ = Math.sin(x * 2 + time) * 0.15;
-      positionAttribute.setXYZ(i, x + waveX + (mouseX * 0.3), y + waveY + (mouseY * 0.3), z + waveZ);
-    }
-    positionAttribute.needsUpdate = true;
+    // GPU-accelerated smooth floating and mouse interaction (0 CPU buffer updates)
+    shape.position.x += (mouseX * 0.35 - shape.position.x) * 0.05;
+    shape.position.y += (mouseY * 0.35 - shape.position.y) * 0.05;
   }
   renderer.render(scene, camera);
 }
@@ -230,7 +221,15 @@ function setupContactFabObserver() {
 
 let reviewsAutoPlayTimer = null;
 
+function stopAutoPlay() {
+  if (reviewsAutoPlayTimer) {
+    clearInterval(reviewsAutoPlayTimer);
+    reviewsAutoPlayTimer = null;
+  }
+}
+
 function setupReviewsAutoSlider() {
+  stopAutoPlay();
   const track = document.getElementById('reviews-slider-track');
   const prevBtn = document.getElementById('reviews-prev');
   const nextBtn = document.getElementById('reviews-next');
