@@ -1250,24 +1250,29 @@ footer {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
-  padding: 1.5rem;
+  padding: 1.25rem 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .kpi-value {
-  font-size: 2.5rem;
-  font-weight: 800;
+  font-size: 1.45rem;
+  font-weight: 700;
   color: #4ade80;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+  word-break: break-word;
 }
 
 .kpi-label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #a1a1aa;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 0.5rem;
+  letter-spacing: 0.8px;
+  margin-top: 0.4rem;
   font-weight: 600;
 }
 
@@ -1560,6 +1565,13 @@ footer {
   .cs-section-heading {
     font-size: 1.3rem;
     margin-bottom: 0.85rem;
+  }
+  .kpi-value {
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+  .kpi-card {
+    padding: 1rem 0.85rem;
   }
   .cs-footer-cta {
     padding: 2rem 1.25rem;
