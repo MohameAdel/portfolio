@@ -101,7 +101,7 @@ export function renderHome() {
         ${renderSection('Salla', salla)}
         ${renderSection('Wordpress', wordpress)}
         ${renderSection('EasyOrder', easyOrder, false)}
-      <      <!-- Client Reviews Section -->
+      <!-- Client Reviews Section -->
       <section id="reviews">
         <div class="reviews-container">
           <div class="reviews-header">
