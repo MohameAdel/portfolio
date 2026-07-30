@@ -621,13 +621,13 @@ header, #nav-overlay {
 }
 
 #home-view > section {
-  padding: 6rem 2rem;
-  min-height: 100vh;
+  padding: 4rem 2rem;
+  min-height: auto;
 }
 
 @media (max-width: 768px) {
   #home-view > section {
-    padding: 8rem 1rem 2.5rem 1rem;
+    padding: 3rem 1rem;
     min-height: auto;
   }
 }
@@ -636,7 +636,7 @@ header, #nav-overlay {
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
   border-bottom: 1px solid #333;
   padding-bottom: 1rem;
 }
@@ -1563,7 +1563,7 @@ footer {
 .reviews-header {
   text-align: center;
   max-width: 650px;
-  margin: 0 auto 3.5rem auto;
+  margin: 0 auto 2.25rem auto;
 }
 
 .reviews-badge {
