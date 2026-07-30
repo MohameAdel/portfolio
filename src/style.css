@@ -1626,10 +1626,11 @@ footer {
 }
 
 .reviews-header-top {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  justify-content: center;
+  margin-bottom: 1.25rem;
 }
 
 .reviews-badge {
@@ -1639,11 +1640,16 @@ footer {
   color: #4ade80;
   background: rgba(74, 222, 128, 0.08);
   border: 1px solid rgba(74, 222, 128, 0.2);
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 1.1rem;
   border-radius: 30px;
+  margin: 0 auto;
 }
 
 .reviews-carousel-nav {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   gap: 0.5rem;
 }
@@ -1724,6 +1730,11 @@ footer {
     flex-direction: column;
     gap: 0.85rem;
     align-items: center;
+    position: static;
+  }
+  .reviews-carousel-nav {
+    position: static;
+    transform: none;
   }
   .reviews-slider-track .review-card {
     flex: 0 0 88%;
