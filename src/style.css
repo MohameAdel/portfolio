@@ -1562,8 +1562,15 @@ footer {
 
 .reviews-header {
   text-align: center;
-  max-width: 650px;
-  margin: 0 auto 2.25rem auto;
+  max-width: 750px;
+  margin: 0 auto 2rem auto;
+}
+
+.reviews-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .reviews-badge {
@@ -1575,14 +1582,40 @@ footer {
   border: 1px solid rgba(74, 222, 128, 0.2);
   padding: 0.4rem 1rem;
   border-radius: 30px;
-  margin-bottom: 1.25rem;
+}
+
+.reviews-carousel-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.review-nav-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.review-nav-btn:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  transform: scale(1.08);
 }
 
 .reviews-title {
   font-size: 2.8rem;
   font-weight: 800;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   letter-spacing: -0.5px;
 }
 
@@ -1592,25 +1625,74 @@ footer {
   line-height: 1.65;
 }
 
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+/* Reviews Auto-Play Slider Track */
+.reviews-slider-track-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 0.5rem 0 1rem 0;
+}
+
+.reviews-slider-track {
+  display: flex;
   gap: 1.75rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  snap-type: x mandatory;
+}
+
+.reviews-slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.reviews-slider-track .review-card {
+  flex: 0 0 calc(33.333% - 1.2rem);
+  min-width: 310px;
+  snap-align: start;
 }
 
 @media (max-width: 992px) {
-  .reviews-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .reviews-slider-track .review-card {
+    flex: 0 0 calc(50% - 0.9rem);
+    min-width: 280px;
   }
 }
 
 @media (max-width: 650px) {
-  .reviews-grid {
-    grid-template-columns: 1fr;
+  .reviews-slider-track .review-card {
+    flex: 0 0 88%;
+    min-width: 250px;
   }
   .reviews-title {
     font-size: 2rem;
   }
+}
+
+/* Pagination Dots */
+.reviews-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.reviews-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, width 0.3s ease;
+}
+
+.reviews-dots .dot.active {
+  background: #4ade80;
+  width: 24px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
 }
 
 .review-card {

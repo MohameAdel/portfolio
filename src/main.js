@@ -228,9 +228,90 @@ function setupContactFabObserver() {
   contactFabObserver.observe(contactEl);
 }
 
+let reviewsAutoPlayTimer = null;
+
+function setupReviewsAutoSlider() {
+  const track = document.getElementById('reviews-slider-track');
+  const prevBtn = document.getElementById('reviews-prev');
+  const nextBtn = document.getElementById('reviews-next');
+  const dotsContainer = document.getElementById('reviews-dots');
+
+  if (!track) return;
+  
+  const cards = track.querySelectorAll('.review-card');
+  if (cards.length === 0) return;
+  
+  let currentIndex = 0;
+
+  const scrollToCard = (index) => {
+    if (index < 0) index = cards.length - 1;
+    if (index >= cards.length) index = 0;
+    currentIndex = index;
+    
+    const cardWidth = cards[0].offsetWidth + 28;
+    track.scrollTo({
+      left: currentIndex * cardWidth,
+      behavior: 'smooth'
+    });
+    
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  };
+
+  const startAutoPlay = () => {
+    stopAutoPlay();
+    reviewsAutoPlayTimer = setInterval(() => {
+      scrollToCard(currentIndex + 1);
+    }, 3500);
+  };
+
+  const stopAutoPlay = () => {
+    if (reviewsAutoPlayTimer) {
+      clearInterval(reviewsAutoPlayTimer);
+      reviewsAutoPlayTimer = null;
+    }
+  };
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      scrollToCard(currentIndex + 1);
+      startAutoPlay();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      scrollToCard(currentIndex - 1);
+      startAutoPlay();
+    });
+  }
+
+  track.addEventListener('mouseenter', stopAutoPlay);
+  track.addEventListener('mouseleave', startAutoPlay);
+  track.addEventListener('touchstart', stopAutoPlay, { passive: true });
+  track.addEventListener('touchend', startAutoPlay, { passive: true });
+
+  if (dotsContainer) {
+    const dots = dotsContainer.querySelectorAll('.dot');
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        scrollToCard(idx);
+        startAutoPlay();
+      });
+    });
+  }
+
+  startAutoPlay();
+}
+
 function initHomeInteractions() {
   setupHeroAutoPause();
   setupContactFabObserver();
+  setupReviewsAutoSlider();
 
   // Mobile Observers
   if (window.innerWidth <= 768) {
