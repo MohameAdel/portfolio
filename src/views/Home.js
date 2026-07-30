@@ -183,9 +183,6 @@ export function renderHome() {
             <span class="dot" data-index="2"></span>
           </div>
         </div>
-      </section>     </div>
-          </div>
-        </div>
       </section>
 
       <!-- About Section -->

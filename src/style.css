@@ -878,16 +878,17 @@ header, #nav-overlay {
 }
 
 .company-badge {
-  display: inline-flex;
-  align-items: center;
+  display: inline;
   font-weight: 600;
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.55rem;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 0.88rem;
-  margin: 0 0.15rem;
+  white-space: nowrap;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .spec-list {
