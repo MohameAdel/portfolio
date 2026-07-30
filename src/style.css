@@ -1695,7 +1695,7 @@ footer {
   position: relative;
   overflow: hidden;
   width: 100%;
-  padding: 0.5rem 0 1rem 0;
+  padding: 1.25rem 0.5rem 1.25rem 0.5rem;
 }
 
 .reviews-slider-track {
@@ -1706,6 +1706,7 @@ footer {
   scrollbar-width: none;
   -ms-overflow-style: none;
   snap-type: x mandatory;
+  padding: 0.5rem 0;
 }
 
 .reviews-slider-track::-webkit-scrollbar {
