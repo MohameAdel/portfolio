@@ -137,7 +137,9 @@ export function renderCaseStudy(project) {
           ${project.role && project.role.length > 0 ? `
             <div class="cs-meta-card cs-meta-wide">
               <span class="cs-meta-label">My Role</span>
-              <span dir="auto" class="cs-meta-val">${project.role.join(' • ')}</span>
+              <div class="cs-role-list">
+                ${project.role.map(r => `<div dir="auto" class="cs-role-item">• ${r}</div>`).join('')}
+              </div>
             </div>
           ` : ''}
         </div>
