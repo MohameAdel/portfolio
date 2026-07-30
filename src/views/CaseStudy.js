@@ -282,6 +282,25 @@ export function renderCaseStudy(project) {
                       <span class="review-click-hint">View Screenshot ↗</span>
                     </div>
                   </div>
+
+                  <!-- Review 4 -->
+                  <div class="review-card" onclick="openReviewLightbox(3)">
+                    <div class="review-card-header">
+                      <div class="stars-rating">★★★★★ <span>5.0</span></div>
+                      <span class="review-verified-badge">Verified Client 🟢</span>
+                    </div>
+                    <div class="review-image-wrapper">
+                      <img src="./rev4.png" alt="Client Review Screenshot 4" loading="lazy" decoding="async" class="review-img">
+                      <div class="review-zoom-overlay">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Expand</span>
+                      </div>
+                    </div>
+                    <div class="review-card-footer">
+                      <span class="review-tag">Client Feedback</span>
+                      <span class="review-click-hint">View Screenshot ↗</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -289,6 +308,7 @@ export function renderCaseStudy(project) {
                 <span class="dot active" data-index="0"></span>
                 <span class="dot" data-index="1"></span>
                 <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
               </div>
             </div>
           </section>

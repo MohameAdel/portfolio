@@ -427,7 +427,7 @@ let currentLightboxImages = [];
 let currentLightboxIndex = 0;
 
 window.openReviewLightbox = function(index) {
-  const reviewImages = ['./rev1.png', './rev2.png', './rev3.png'];
+  const reviewImages = ['./rev1.png', './rev2.png', './rev3.png', './rev4.png'];
   if (index < 0 || index >= reviewImages.length) return;
   currentLightboxImages = reviewImages;
   currentLightboxIndex = index;
