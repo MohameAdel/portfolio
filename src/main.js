@@ -344,6 +344,17 @@ function handleRoute() {
 let currentLightboxImages = [];
 let currentLightboxIndex = 0;
 
+window.openReviewLightbox = function(index) {
+  const reviewImages = ['./rev1.png', './rev2.png', './rev3.png'];
+  if (index < 0 || index >= reviewImages.length) return;
+  currentLightboxImages = reviewImages;
+  currentLightboxIndex = index;
+  updateLightboxImage();
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) lightbox.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+
 window.openLightbox = function(index, slug) {
   const project = projects.find(p => p.slug === slug);
   if (!project || !project.gallery) return;
