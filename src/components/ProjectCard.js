@@ -8,7 +8,7 @@ export function renderProjectCard(project) {
   }
 
   return `
-    <div class="project-card-wrapper fade-in-section">
+    <div class="project-card-wrapper">
       <div class="project-card">
         <div class="project-image-container">
           <img src="${project.coverImage || ''}" alt="${project.title}" loading="lazy" decoding="async" class="project-card-img">

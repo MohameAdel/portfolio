@@ -1375,8 +1375,8 @@ footer {
   position: relative;
   box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
   flex-shrink: 0;
-  contain: layout style;
-  transform: translateZ(0);
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .project-card-wrapper:hover {
